@@ -1,50 +1,69 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
+import { useMicrophone } from "./hooks/useMicrophone";
+
+import PushToTalk from "./components/PushToTalk";
+import StatusIndicator from "./components/StatusIndicator";
+import TranscriptView from "./components/TranscriptView";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  const [transcript, setTranscript] = useState("");
+  const { startRecording, stopRecording, isRecording } = useMicrophone();
 
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
+    <div
+      style={{
+        height: "100vh",
+        background: "#0f172a",
+        color: "white",
+        padding: 20,
+      }}
+    >
+      {/* HEADER */}
+      <h2 style={{ marginBottom: 50, letterSpacing: 1 }}>
+        Voice To Text 
+      </h2>
 
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "320px 1fr",
+          gap: 20,
+          height: "88%",
         }}
       >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
+        {/* LEFT PANEL */}
+        <div
+          style={{
+            background: "#020617",
+            borderRadius: 12,
+            padding: 20,
+            display: "flex",
+            flexDirection: "column",
+            gap: 20,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <PushToTalk
+            isRecording={isRecording}
+            onStart={() =>
+              startRecording((text) => {
+                setTranscript((prev) => prev + " " + text);
+              })
+            }
+            onStop={stopRecording}
+          />
+
+          <StatusIndicator isRecording={isRecording} />
+        </div>
+
+        {/* RIGHT PANEL */}
+        <TranscriptView
+         transcript={transcript} 
+         onClear={() => setTranscript("")}
+         />
+      </div>
+    </div>
   );
 }
 
