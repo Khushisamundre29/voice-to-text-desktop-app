@@ -1,10 +1,19 @@
 export default function PushToTalk({ isRecording, onStart, onStop }) {
   return (
     <div style={{ textAlign: "center" }}>
+      
       <button
-        onMouseDown={onStart}
-        onMouseUp={onStop}
-        style={{
+        onPointerDown={(e) => {
+        e.preventDefault();
+        onStart();
+     }}
+         onPointerUp={(e) => {
+         e.preventDefault();
+         onStop();
+     }}
+       onPointerLeave={onStop}
+
+       style={{
           width: 120,
           height: 120,
           borderRadius: "50%",

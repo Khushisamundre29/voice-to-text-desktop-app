@@ -1,7 +1,7 @@
 export default function TranscriptView({ transcript }) {
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      {/* TITLE ABOVE BOX */}
+  
       <h3
         style={{
           marginBottom: 10,
@@ -13,7 +13,6 @@ export default function TranscriptView({ transcript }) {
         TRANSCRIPT
       </h3>
 
-      {/* TRANSCRIPT BOX */}
      <div
         style={{
         flex: 1,
@@ -36,7 +35,7 @@ export default function TranscriptView({ transcript }) {
           <p style={{ whiteSpace: "pre-wrap" }}>{transcript}</p>
         ) : (
           <p style={{ color: "#64748b" }}>
-            Press the microphone button or hold Space to start recording
+            Press the microphone button  to start recording
           </p>
         )}
       </div>

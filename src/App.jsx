@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useMicrophone } from "./hooks/useMicrophone";
-
 import PushToTalk from "./components/PushToTalk";
 import StatusIndicator from "./components/StatusIndicator";
 import TranscriptView from "./components/TranscriptView";
@@ -10,28 +9,10 @@ function App() {
   const { startRecording, stopRecording, isRecording } = useMicrophone();
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        background: "#0f172a",
-        color: "white",
-        padding: 20,
-      }}
-    >
-      {/* HEADER */}
-      <h2 style={{ marginBottom: 50, letterSpacing: 1 }}>
-        Voice To Text 
-      </h2>
+    <div style={{ height: "100vh", width: "100vw", background: "#0f172a", color: "white", padding: 20 }}>
+      <h2 style={{ marginBottom: 50 }}>VoiceToText</h2>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "320px 1fr",
-          gap: 20,
-          height: "88%",
-        }}
-      >
-        {/* LEFT PANEL */}
+      <div style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: 20, height: "88%" }}>
         <div
           style={{
             background: "#020617",
@@ -42,26 +23,18 @@ function App() {
             gap: 20,
             alignItems: "center",
             justifyContent: "center",
+            marginTop: 50,
           }}
         >
           <PushToTalk
             isRecording={isRecording}
-            onStart={() =>
-              startRecording((text) => {
-                setTranscript((prev) => prev + " " + text);
-              })
-            }
-            onStop={stopRecording}
+            onStart={() => startRecording()}
+            onStop={() => stopRecording((text) => setTranscript(prev => prev + " " + text))}
           />
-
           <StatusIndicator isRecording={isRecording} />
         </div>
 
-        {/* RIGHT PANEL */}
-        <TranscriptView
-         transcript={transcript} 
-         onClear={() => setTranscript("")}
-         />
+        <TranscriptView transcript={transcript} onClear={() => setTranscript("")} />
       </div>
     </div>
   );
