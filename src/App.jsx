@@ -13,7 +13,7 @@ function App() {
   const { startRecording, stopRecording, isRecording } = useMicrophone();
 
   return (
-    <div style={{ height: "100vh", width: "100vw", display: "flex", flexDirection: "column", background: "#0f172a", color: "white" }}>
+    <div style={{ height: "100vh",width: "100vw", display: "flex", flexDirection: "column", background: "#020617", color: "white" }}>
       <Navbar />
       <div style={{ padding: 20 }}></div>
       <h2 style={{ marginBottom: 5}}></h2>
@@ -21,7 +21,7 @@ function App() {
       <div style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: 20, height: "88%" }}>
         <div
           style={{
-            background: "#020617",
+            background: "#0f172a",
             borderRadius: 12,
             padding: 20,
             display: "flex",

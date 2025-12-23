@@ -1,45 +1,67 @@
-export default function TranscriptView({ transcript }) {
+export default function TranscriptView({ transcript, onClear }) {
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-  
-      <h3
+
+      {/* HEADER ROW */}
+      <div
         style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
           marginBottom: 10,
-          fontSize: 20,
-          letterSpacing: "1px",
-          color: "#94a3b8",
         }}
       >
-        TRANSCRIPT
-      </h3>
+        <h3
+          style={{
+            fontSize: 20,
+            letterSpacing: "1px",
+            color: "#94a3b8",
+            margin: 0,
+          }}
+        >
+          TRANSCRIPT
+        </h3>
 
-     <div
+        {/* CLEAR BUTTON  */}
+        <button
+          onClick={onClear}
+          style={{
+            background: "transparent",
+            border: "1px solid #334155",
+            color: "#cbd5f5",
+            padding: "6px 14px",
+            borderRadius: 10,
+            cursor: "pointer",
+            marginRight: 40,
+          }}
+        >
+          Clear
+        </button>
+      </div>
+
+      {/* TRANSCRIPT BOX */}
+      <div
         style={{
-        flex: 1,
-        padding: 24,
-        background: "#020617",
-        borderRadius: 14,
-        border: "1px solid #1e293b",
-        color: "#e5e7eb",
-        overflowY: "auto",
-        lineHeight: 1.7,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: transcript ? "flex-start" : "center",
-        marginRight: 30,
-        marginBottom: 20,
+          flex: 1,
+          padding: 24,
+          background: "#0f172a",
+          borderRadius: 14,
+          border: "1px solid #1e293b",
+          color: "#e5e7eb",
+          overflowY: "auto",
+          lineHeight: 1.7,
+          marginRight: 30,
+          marginBottom: 20,
         }}
-    >
-
+      >
         {transcript ? (
-          <p style={{ whiteSpace: "pre-wrap" }}>{transcript}</p>
+          <p style={{ whiteSpace: "pre-wrap", margin: 0 }}>{transcript}</p>
         ) : (
-          <p style={{ color: "#64748b" }}>
-            Press the microphone button  to start recording
+          <p style={{ color: "#64748b", margin: 0 , textAlign: "center" , marginTop: "30%"}}>
+            Press the microphone button to start recording
           </p>
         )}
       </div>
     </div>
   );
 }
-
