@@ -1,14 +1,21 @@
 export default function TranscriptView({ transcript, onClear }) {
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        padding: 24,
+        boxSizing: "border-box",
+        gap: 12,
+      }}
+    >
       {/* HEADER ROW */}
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: 10,
         }}
       >
         <h3
@@ -22,7 +29,6 @@ export default function TranscriptView({ transcript, onClear }) {
           TRANSCRIPT
         </h3>
 
-        {/* CLEAR BUTTON  */}
         <button
           onClick={onClear}
           style={{
@@ -32,7 +38,6 @@ export default function TranscriptView({ transcript, onClear }) {
             padding: "6px 14px",
             borderRadius: 10,
             cursor: "pointer",
-            marginRight: 40,
           }}
         >
           Clear
@@ -50,14 +55,16 @@ export default function TranscriptView({ transcript, onClear }) {
           color: "#e5e7eb",
           overflowY: "auto",
           lineHeight: 1.7,
-          marginRight: 30,
-          marginBottom: 20,
+          display: "flex",
+          alignItems: transcript ? "flex-start" : "center",
+          justifyContent: transcript ? "flex-start" : "center",
+          textAlign: transcript ? "left" : "center",
         }}
       >
         {transcript ? (
           <p style={{ whiteSpace: "pre-wrap", margin: 0 }}>{transcript}</p>
         ) : (
-          <p style={{ color: "#64748b", margin: 0 , textAlign: "center" , marginTop: "30%"}}>
+          <p style={{ color: "#64748b", margin: 0 }}>
             Press the microphone button to start recording
           </p>
         )}
