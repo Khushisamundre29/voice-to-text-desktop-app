@@ -9,7 +9,6 @@ export function useMicrophone() {
   const startRecording = async () => {
     streamRef.current = await navigator.mediaDevices.getUserMedia({ audio: true });
     mediaRecorderRef.current = new MediaRecorder(streamRef.current);
-
     audioChunksRef.current = [];
 
     mediaRecorderRef.current.ondataavailable = (e) => {
@@ -39,10 +38,21 @@ export function useMicrophone() {
       );
 
       const data = await response.json();
-      const text =
-        data?.results?.channels[0]?.alternatives[0]?.transcript || "";
+      console.log("Deepgram response:", data);
 
-      onTranscript(text);
+      const channel = data?.results?.channels?.[0];
+      const alt = channel?.alternatives?.[0];
+
+      const text =
+        alt?.transcript ||
+        alt?.paragraphs?.transcript ||
+        "";
+
+      console.log("Extracted transcript:", text);
+
+      if (text && onTranscript) {
+        onTranscript(text);
+      }
     };
 
     mediaRecorderRef.current.stop();
