@@ -46,8 +46,7 @@ function App() {
        })
     }
   />
-
-
+  
           <StatusIndicator isRecording={isRecording} />
         </div>
 
