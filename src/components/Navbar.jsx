@@ -1,58 +1,31 @@
-export default function Navbar() {
+export default function Navbar({ isRecording, wordCount }) {
   return (
-    <div
-      style={{
-        height: 64,
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        padding: "0 24px",
-        background:
-          "linear-gradient(180deg, rgba(2,6,23,0.95), rgba(2,6,23,0.85))",
-        borderBottom: "1px solid #1e293b",
-        boxSizing: "border-box",
-      }}
-    >
-      {/* Logo */}
-      <div
-        style={{
-          width: 36,
-          height: 36,
-          borderRadius: "50%",
-          background: "#14b8a6",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontWeight: 700,
-          color: "#020617",
-          marginRight: 12,
-        }}
-      >
-        V
-      </div>
-
-      {/* Title */}
-      <div>
-        <div
-          style={{
-            fontSize: 16,
-            fontWeight: 600,
-            color: "#e5e7eb",
-            lineHeight: 1.2,
-          }}
-        >
-          VoiceToText
-        </div>
-
-        <div
-          style={{
-            fontSize: 12,
-            color: "#94a3b8",
-          }}
-        >
-          Real-time transcription
+    <nav className="navbar">
+      {/* Left side - branding */}
+      <div className="navbar-left">
+        <div>
+          <div className="navbar-title">VoiceToText</div>
         </div>
       </div>
-    </div>
+
+      {/* Right side - stats */}
+      <div className="navbar-right">
+        {/* Show word count if transcript has content */}
+        {wordCount > 0 && (
+          <div className="nav-stat">
+            <span className="nav-stat-value">{wordCount}</span>
+            <span className="nav-stat-label">words</span>
+          </div>
+        )}
+
+        {/* Show recording indicator when active */}
+        {isRecording && (
+          <div className="nav-rec-badge">
+            <span className="nav-rec-dot" />
+            REC
+          </div>
+        )}
+      </div>
+    </nav>
   );
 }

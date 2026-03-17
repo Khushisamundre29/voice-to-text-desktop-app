@@ -1,35 +1,25 @@
 export default function PushToTalk({ isRecording, onStart, onStop }) {
   return (
-    <div style={{ textAlign: "center" }}>
-      
+    <div className="ptb-wrap">
       <button
-        onPointerDown={(e) => {
-        e.preventDefault();
-        onStart();
-     }}
-         onPointerUp={(e) => {
-         e.preventDefault();
-         onStop();
-     }}
-       onPointerLeave={onStop}
-
-       style={{
-          width: 120,
-          height: 120,
-          borderRadius: "50%",
-          border: "none",
-          fontSize: 40,
-          cursor: "pointer",
-          background: isRecording ? "#e63946" : "#2a9d8f",
-          color: "white",
+        className={`ptb-btn ${isRecording ? "active" : ""}`}
+        // Start recording on mouse/touch down
+        onPointerDown={(e) => { 
+          e.preventDefault(); 
+          onStart(); 
+        }}
+        // Stop recording on mouse/touch up
+        onPointerUp={(e) => { 
+          e.preventDefault(); 
+          onStop(); 
+        }}
+        // Stop recording if user drags away
+        onPointerLeave={() => { 
+          if (isRecording) onStop(); 
         }}
       >
         🎤
       </button>
-
-      <p style={{ marginTop: 12, opacity: 0.7 }}>
-        Hold to record
-      </p>
     </div>
   );
 }
